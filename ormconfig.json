@@ -1,6 +1,9 @@
 {
     "type": "sqlite",
     "database": "./src/database/database.sqlite",
+    "entities": ["./src/modules/**.ts"],
+    "migrations": ["./src/database/migrations/**.ts"],
+    "logging": true,
     "cli": {
         "migrationsDir": "./src/database/migrations"
     }
