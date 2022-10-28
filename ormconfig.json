@@ -1,10 +1,10 @@
 {
     "type": "sqlite",
-    "database": "./src/database/database.sqlite",
+    "database": "./src/shared/infra/typeorm/database.sqlite",
     "entities": ["./src/modules/**/entities/*.ts"],
-    "migrations": ["./src/database/migrations/**.ts"],
+    "migrations": ["./src/shared/infra/typeorm/migrations/**.ts"],
     "logging": true,
     "cli": {
-        "migrationsDir": "./src/database/migrations"
+        "migrationsDir": "./src/shared/infra/typeorm/migrations"
     }
 }

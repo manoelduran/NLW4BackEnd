@@ -1,5 +1,5 @@
+import { CreateUserController } from "@modules/users/infra/http/controllers/UserController";
 import { Router } from "express";
-import { CreateUserController } from "../../modules/users/infra/http/controllers/UserController";
 
 const userRoutes = Router();
 

@@ -1,8 +1,10 @@
+import { AppError } from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
-import { AppError } from '../../../shared/errors/AppError';
-import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
-import { User } from '../infra/typeorm/entities/User';
-import { IUsersRepository } from '../repositories/IUsersRepository';
+import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO';
+import { User } from '@modules/users/infra/typeorm/entities/User';
+import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
+
+
 
 
 @injectable()

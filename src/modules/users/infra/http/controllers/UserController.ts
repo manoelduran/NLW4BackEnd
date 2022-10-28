@@ -1,6 +1,7 @@
+import { CreateUserService } from "@modules/users/services/CreateUser/CreateUserService";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { CreateUserService } from "../../../services/CreateUserService";
+
 
 
 class CreateUserController {
