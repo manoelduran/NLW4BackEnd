@@ -1,4 +1,4 @@
-import { CreateUserController } from "@modules/users/infra/http/controllers/UserController";
+import { CreateUserController } from "@modules/users/infra/http/controllers/CreateUserController";
 import { Router } from "express";
 
 const userRoutes = Router();
