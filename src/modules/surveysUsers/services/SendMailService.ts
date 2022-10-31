@@ -4,6 +4,8 @@ import { ISurveysUsersRepository } from "../repositories/ISurveysUsersRepository
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { ISurveysRepository } from "@modules/survey/repositories/ISurveysRepository";
 import { AppError } from "@shared/errors/AppError";
+import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
+import { resolve } from "path";
 
 interface IRequest {
     email: string;
@@ -19,11 +21,13 @@ class SendMailService {
         @inject("UsersRepository")
         private usersRepository: IUsersRepository,
         @inject("SurveysRepository")
-        private surveysRepository: ISurveysRepository
+        private surveysRepository: ISurveysRepository,
+        @inject("MailProvider")
+        private etherealMailProvider: IMailProvider
     ) { }
     async execute({ email, survey_id }: IRequest): Promise<SurveysUsers> {
         const usersAlreadyExists = await this.usersRepository.findByEmail(email);
-
+        const templatePath = resolve(__dirname, "..", "views", "emails", "forgotPassword.hbs");
         if (!usersAlreadyExists) {
             throw new AppError("This user doesn't exists! Try another one!")
         };
@@ -36,6 +40,16 @@ class SendMailService {
             survey_id,
             user_id: usersAlreadyExists.id,
         });
+        const variables = {
+            name: usersAlreadyExists.name,
+            link: "http://localhost:3333/surveysUsers"
+        }
+        await this.etherealMailProvider.sendMail(
+            email,
+            "Avalie nosso atendimento",
+            variables,
+            templatePath
+        )
         return newSurveysUsers;
     };
 };

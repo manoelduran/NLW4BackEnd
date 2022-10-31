@@ -7,7 +7,7 @@ class SendMailController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { email, survey_id } = request.body;
         const sendMailService = container.resolve(SendMailService);
-        const newSendMail = sendMailService.execute({
+        const newSendMail = await sendMailService.execute({
             survey_id,
             email,
         })
