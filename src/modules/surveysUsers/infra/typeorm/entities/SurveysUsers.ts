@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Survey } from "@modules/survey/infra/typeorm/entities/Survey";
+import { User } from "@modules/users/infra/typeorm/entities/User";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from 'uuid';
 
 @Entity("surveys_users")
@@ -10,6 +12,14 @@ class SurveysUsers {
     @Column()
     user_id: string;
 
+    @ManyToOne(() => User)
+    @JoinColumn({name: "user_id"})
+    user: User;
+
+    @ManyToOne(() => Survey)
+    @JoinColumn({name: "survay_id"})
+    survey: Survey;
+    
     @Column()
     survey_id: string;
 

@@ -28,6 +28,10 @@ class SendMailService {
     async execute({ email, survey_id }: IRequest): Promise<SurveysUsers> {
         const usersAlreadyExists = await this.usersRepository.findByEmail(email);
         const templatePath = resolve(__dirname, "..", "views", "emails", "forgotPassword.hbs");
+        const variables = {
+            name: usersAlreadyExists.name,
+            link: "http://localhost:3333/surveysUsers"
+        }
         if (!usersAlreadyExists) {
             throw new AppError("This user doesn't exists! Try another one!")
         };
@@ -35,15 +39,11 @@ class SendMailService {
         if (!surveysAlreadyExists) {
             throw new AppError("This survey doesn't exists!");
         };
-
         const newSurveysUsers = await this.surveysUsersRepository.create({
             survey_id,
             user_id: usersAlreadyExists.id,
         });
-        const variables = {
-            name: usersAlreadyExists.name,
-            link: "http://localhost:3333/surveysUsers"
-        }
+      
         await this.etherealMailProvider.sendMail(
             email,
             "Avalie nosso atendimento",
